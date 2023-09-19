@@ -43,7 +43,8 @@ export default {
           options: [
             {
               'value' : '',
-              'correct' : false
+              'correct' : false,
+              'class' :'warning'
             }
           ]
         }
@@ -58,7 +59,8 @@ export default {
       for(var i=1; i<=control.option_count;i++) {
         control.options.push({
           'value' : '',
-          'correct' : false
+          'correct' : false,
+          'class' :'warning'
         });
       }
       
@@ -73,7 +75,8 @@ export default {
           options: [
             {
               'value' : 'test',
-              'correct' : false
+              'correct' : false,
+              'class' :'warning'
             }
           ]
         });

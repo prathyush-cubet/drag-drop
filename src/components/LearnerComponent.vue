@@ -1,55 +1,37 @@
 <template>
   <form class="container" @submit.prevent="checkAnswer()">
     <h3>{{ currentQuestion.subject }}</h3>x
-    <!-- <b-container fluid class="bv-example-row">
-      <h3>{{ currentQuestion.subject }}</h3>
-      <b-row>
-        <b-col class="option" v-for="(option, index) in currentQuestion.options" :key="index">
-          <h3>{{ option.value }}</h3>
-          </b-col>
-      </b-row>
-    </b-container> -->
-
-
-
-
-  <div class="row">
-    <draggable
-      class="dragArea col-sm-12 card widget-flat"
-      :list="list1"
-      :group="{ name: 'people' }"
-      item-key="value"
-      @change="log"
-    >
-      <template #item="{ element }">
-        <div class="card-body option">
-          {{ element.value }}
-        </div>
-      </template>
-    </draggable>
-  </div>
-
-
-  <div class="row">
-    <draggable
-        class="dragArea list-group"
-        :list="list2"
-        group="people"
+    <div class="row">
+      <draggable
+        class="dragArea col-sm-12 card widget-flat"
+        :list="list1"
+        :group="{ name: 'people' }"
         item-key="value"
+        @change="log"
       >
         <template #item="{ element }">
-          <div class="card-body option">
+          <div class="card-body option" :class="element.class">
             {{ element.value }}
           </div>
         </template>
       </draggable>
-  </div>
+    </div>
 
-<!-- 
-    <div class="h-100 d-flex align-items-center justify-content-center">
-      <b-col class="answer">Drag correct answer here</b-col>
-    </div> -->
-    <!-- <div>{{ list2 }}</div> -->
+    <div class="row">
+      <draggable
+          class="dragArea list-group"
+          :list="list2"
+          group="people"
+          item-key="value"
+        >
+          <template #item="{ element }">
+            <div class="card-body option" :class="element.class">
+              {{ element.value }}
+            </div>
+          </template>
+        </draggable>
+    </div>
+
     <button type="submit">Check if correct</button>
   </form>
 </template>
@@ -90,6 +72,25 @@ export default {
       else {
         alert('Not Correct')
       }
+
+      this.list1 = this.list1.map((vitem) => {
+        if(vitem.correct == true) 
+        {
+          vitem.class = "alert alert-primary"
+        }else {
+          vitem.class = "alert alert-danger"
+        }
+        return vitem;
+      });
+      this.list2 =this.list2.map((vitem) => {
+        if(vitem.correct == true) 
+        {
+          vitem.class = "alert alert-primary"
+        }else {
+          vitem.class = "alert alert-danger"
+        }
+        return vitem;
+      });
     },
     getQuestions(){
       this.questions = JSON.parse(localStorage.getItem('questions'));
@@ -121,12 +122,12 @@ export default {
 <style scoped>
 .option {
   border-style: solid;
+  border-width: thin;
   border-color: grey;
   width: 100px;
   height: 100px;
   text-align: center;
   vertical-align: middle;
-  background-color:antiquewhite;
 }
 .answer {
   border-style: solid;
