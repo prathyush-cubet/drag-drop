@@ -13,33 +13,36 @@
 
 
 
-    <div class="row">
-      <draggable
-        class="col-sm-12 card widget-flat "
-        :list="list1"
-        group="people"
-        @change="log"
-        itemKey="value"
-      >
-        <template #item="{ element, index }">
-          <div class="card-body option" :key="index">{{ element.value }}</div>
-        </template>
+  <div class="row">
+    <draggable
+      class="dragArea col-sm-12 card widget-flat"
+      :list="list1"
+      :group="{ name: 'people' }"
+      item-key="value"
+      @change="log"
+    >
+      <template #item="{ element }">
+        <div class="card-body option">
+          {{ element.value }}
+        </div>
+      </template>
     </draggable>
   </div>
 
 
   <div class="row">
-      <draggable v-if="list2.length"
-        class="col-sm-12 card widget-flat"
+    <draggable
+        class="dragArea list-group"
         :list="list2"
         group="people"
-        @change="log"
-        itemKey="value"
+        item-key="value"
       >
-        <template #item="{ element, index }">
-          <div class="card-body option" :key="index">{{ element.value }}</div>
+        <template #item="{ element }">
+          <div class="card-body option">
+            {{ element.value }}
+          </div>
         </template>
-    </draggable>
+      </draggable>
   </div>
 
 <!-- 
@@ -53,6 +56,7 @@
 
 <script>
 import draggable from "vuedraggable";
+
 export default {
   name: "LearnComponent",
   components: {
@@ -69,17 +73,22 @@ export default {
   methods: {
     checkAnswer() {
       var origCount= 0 ;
-
-
+      var myCount = 0;
+      this.questions = JSON.parse(localStorage.getItem('questions'));
+      this.currentQuestion = this.questions[0];
       this.currentQuestion.options.map((vitem) => {
         if(vitem.correct == true) origCount++;
       });
 
-      if(origCount) {
-        alert('Not correct!');
+      this.list2.map((vitem) => {
+        if(vitem.correct == true) myCount++;
+        else myCount--;
+      });
+      if(origCount == myCount) {
+        alert('correct!');
       }
       else {
-        alert('Correct')
+        alert('Not Correct')
       }
     },
     getQuestions(){
@@ -94,6 +103,7 @@ export default {
     log: function(evt) {
       window.console.log(evt);
       if(this.list2.length>1) {
+
         this.list2 = this.list2.filter((item) => {
           if(item.value == 'Drag correct answer here') {
             return false;
@@ -101,7 +111,7 @@ export default {
           return true;
         });
       }
-    }
+    },
   },
   mounted() {
     this.getQuestions();
