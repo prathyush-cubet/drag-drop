@@ -18,7 +18,6 @@
       </draggable>
     </div>
     <div class="row" style="height: 250px">
-      <span>Move your answer(s) to bottom area</span>
       <draggable
         class=" row border"
         :list="list2"
@@ -36,16 +35,17 @@
       <button
         type="button"
         @click="PrevQuestion"
-        class="btn btn-secondary"
+        class="btn btn-secondary m-1"
         :disabled="this.qstIndex <= 0"
       >
         Previous Question
       </button>
-      <button type="submit">Check if correct</button>
+      <button type="submit" class="btn btn-secondary m-1">Check if correct</button>
+      <button type="button" class="btn btn-secondary m-1" @click="reset()">Reset</button>
       <button
         type="button"
         @click="nextQuestion"
-        class="btn btn-secondary"
+        class="btn btn-secondary m-1"
         :disabled="this.qstIndex >= this.questions?.length - 1"
       >
         Next Question
@@ -149,6 +149,9 @@ export default {
         });
       }
     },
+    reset() {
+      this.getQuestions();
+    }
   },
   mounted() {
     this.getQuestions();
