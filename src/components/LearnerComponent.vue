@@ -2,39 +2,54 @@
   <form class="container" @submit.prevent="checkAnswer()">
     <h3>{{ currentQuestion.subject }}</h3>
     <div class="row">
-        <draggable
-          class="dragArea row border"
-          style="height:200px"
-          :list="list1"
-          :group="{ name: 'people' }"
-          item-key="value"
-          @change="log"
-        >
-          <template #item="{ element }">
-            <div class="card widget-flat option m-5" :class="element.class">
-              {{ element.value }}
-            </div>
-          </template>
-        </draggable>
-      </div>
-      <div class="row" style="height:250px"><h5>Move your answer(s) to bottom area</h5>
       <draggable
-          class="dragArea row border"
-          :list="list2"
-          group="people"
-          item-key="value"
-        >
-          <template #item="{ element }">
-            <div class="card widget-flat option m-5" :class="element.class">
-              {{ element.value }}
-            </div>
-          </template>
-        </draggable>
-      </div>
+        class="dragArea row border"
+        style="height: 200px"
+        :list="list1"
+        :group="{ name: 'people' }"
+        item-key="value"
+        @change="log"
+      >
+        <template #item="{ element }">
+          <div class="card widget-flat option m-5" :class="element.class">
+            {{ element.value }}
+          </div>
+        </template>
+      </draggable>
+    </div>
+    <div class="row" style="height: 250px">
+      <span>Move your answer(s) to bottom area</span>
+      <draggable
+        class=" row border"
+        :list="list2"
+        group="people"
+        item-key="value"
+      >
+        <template #item="{ element }">
+          <div class="card widget-flat option m-5" :class="element.class">
+            {{ element.value }}
+          </div>
+        </template>
+      </draggable>
+    </div>
     <div class="btn-group" role="group" aria-label="Basic example">
-      <button type="button" @click="PrevQuestion" class="btn btn-secondary" :disabled="this.qstIndex <= 0">Previous Question</button>
+      <button
+        type="button"
+        @click="PrevQuestion"
+        class="btn btn-secondary"
+        :disabled="this.qstIndex <= 0"
+      >
+        Previous Question
+      </button>
       <button type="submit">Check if correct</button>
-      <button type="button" @click="nextQuestion" class="btn btn-secondary" :disabled="this.qstIndex >= this.questions.length -1 ">Next Question</button>
+      <button
+        type="button"
+        @click="nextQuestion"
+        class="btn btn-secondary"
+        :disabled="this.qstIndex >= this.questions?.length - 1"
+      >
+        Next Question
+      </button>
     </div>
   </form>
 </template>
@@ -45,89 +60,89 @@ import draggable from "vuedraggable";
 export default {
   name: "LearnComponent",
   components: {
-    draggable
+    draggable,
   },
   data() {
     return {
-      questions:[],
-      currentQuestion :'',
-      list1 : [],
-      list2 : [],
-      qstIndex : 0
+      questions: [],
+      currentQuestion: "",
+      list1: [],
+      list2: [],
+      qstIndex: 0,
     };
   },
   methods: {
     nextQuestion() {
       this.qstIndex++;
-      if(this.questions.length > this.qstIndex && this.qstIndex>=0) 
-      {
+      if (this.questions.length > this.qstIndex && this.qstIndex >= 0) {
         this.getQuestions();
       }
     },
     PrevQuestion() {
       this.qstIndex--;
-      
-      if(this.qstIndex >= 0 && this.questions.length > this.qstIndex) 
-      {
+
+      if (this.qstIndex >= 0 && this.questions.length > this.qstIndex) {
         this.getQuestions();
       }
     },
     checkAnswer() {
-      var origCount= 0 ;
+      var origCount = 0;
       var myCount = 0;
-      this.questions = JSON.parse(localStorage.getItem('questions'));
+      this.questions = JSON.parse(localStorage.getItem("questions"));
       this.currentQuestion = this.questions[this.qstIndex];
       this.currentQuestion.options.map((vitem) => {
-        if(vitem.correct == true) origCount++;
+        if (vitem.correct == true) origCount++;
       });
 
       this.list2.map((vitem) => {
-        if(vitem.correct == true) myCount++;
+        if (vitem.correct == true) myCount++;
         else myCount--;
       });
-      if(origCount == myCount) {
-        alert('correct!');
-      }
-      else {
-        alert('Not Correct')
+      if (origCount == myCount) {
+        alert("Correct!");
+      } else {
+        alert("Not Correct");
       }
 
       this.list1 = this.list1.map((vitem) => {
-        
-        if(vitem.correct == true) 
-        {
-          vitem.class = "alert alert-primary"
-        }else {
-          vitem.class = "alert alert-danger"
+        if (vitem.correct == true) {
+          vitem.class = "alert alert-success";
+        } else {
+          vitem.class = "alert alert-danger";
         }
         return vitem;
       });
-      this.list2 =this.list2.map((vitem) => {
-        if(vitem.value == 'Drag correct answer here') return vitem;
-        if(vitem.correct == true) 
-        {
-          vitem.class = "alert alert-primary"
-        }else {
-          vitem.class = "alert alert-danger"
+      this.list2 = this.list2.map((vitem) => {
+        if (vitem.value == "Drag correct answer here") return vitem;
+        if (vitem.correct == true) {
+          vitem.class = "alert alert-success";
+        } else {
+          vitem.class = "alert alert-danger";
         }
         return vitem;
       });
     },
-    getQuestions(){
-      this.questions = JSON.parse(localStorage.getItem('questions'));
+    getQuestions() {
+      this.questions = JSON.parse(localStorage.getItem("questions"));
+      if(this.questions == null) {
+        this.$router.push('admin');
+        return;
+      }
+
       this.currentQuestion = this.questions[this.qstIndex];
       this.list1 = this.currentQuestion.options;
-      this.list2 = [{
-        'value' :'Drag correct answer here',
-        'correct' : false
-      }];
+      this.list2 = [
+        {
+          value: "Drag correct answer here",
+          correct: false,
+        },
+      ];
     },
-    log: function(evt) {
+    log: function (evt) {
       window.console.log(evt);
-      if(this.list2.length>1) {
-
+      if (this.list2.length > 1) {
         this.list2 = this.list2.filter((item) => {
-          if(item.value == 'Drag correct answer here') {
+          if (item.value == "Drag correct answer here") {
             return false;
           }
           return true;

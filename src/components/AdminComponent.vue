@@ -5,20 +5,19 @@
         <input
           type="number"
           class="form-control"
-          placeholder="No.of Questions"
+          placeholder="Number of elements"
           v-model="no_of_elements"
           @keyup="addQuestion(no_of_elements)"
         />
       </td>
     </tr>
-    <table v-for="(control, index) in form_controls" :key="index">
+    <table v-for="(control, index) in form_controls" :key="index" width="100%">
       <tr>
         <td>
-          <div class="p-3 border border-primary">
-            <table>
+          <div class="p-3 border">
+            <table width="100%">
               <tr>
                 <td>
-                  <label :for="control.id">Subject</label>
                   <input
                     type="text"
                     class="form-control"
@@ -30,11 +29,10 @@
               </tr>
               <tr>
                 <td>
-                  <label>Option Count</label>
                   <input
                     type="number"
                     class="form-control"
-                    placeholder="Options count"
+                    placeholder="Number of element (1-10) "
                     v-model="control.option_count"
                     @keyup="addOptions(control)"
                   />
@@ -43,8 +41,8 @@
               <tr v-if="control.options.length">
                 <td>
                   <div class="p-3">
-                    <label>Options</label>
                     <table>
+                      <tr><td>Options</td><td>Correct?</td></tr>
                       <tr v-for="(option, vindex) in control.options" :key="vindex">
                         <td>
                           <input
@@ -86,7 +84,7 @@ export default {
             {
               value: "",
               correct: false,
-              class: "warning",
+              class: "alert alert-warning",
             },
           ],
         },
@@ -100,7 +98,7 @@ export default {
         control.options.push({
           value: "",
           correct: false,
-          class: "warning",
+          class: "alert alert-warning",
         });
       }
     },
@@ -115,7 +113,7 @@ export default {
             {
               value: "",
               correct: false,
-              class: "warning",
+              class: "alert alert-warning",
             },
           ],
         });

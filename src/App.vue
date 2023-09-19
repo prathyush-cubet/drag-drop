@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-  <div>
+
     <b-navbar toggleable="lg" type="dark" variant="info">
     <b-navbar-brand href="#">Vue3</b-navbar-brand>
 
@@ -19,7 +19,7 @@
   </div>
 
     <router-view></router-view>
-  </div>
+
 </template>
 
 <script>

@@ -3,9 +3,9 @@ import AdminComponent from '@/components/AdminComponent.vue'
 import LearnerComponent from '@/components/LearnerComponent.vue'
 
 const routes = [
-  { path: '/', component: AdminComponent },
-  { path: '/admin', component: AdminComponent },
-  { path: '/learner', component: LearnerComponent },
+  { path: '/', component: AdminComponent, name:'dashboard' },
+  { path: '/admin', component: AdminComponent, name:'admin'},
+  { path: '/learner', component: LearnerComponent, name:'learner' },
 ];
 
 const router = createRouter({
