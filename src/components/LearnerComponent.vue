@@ -1,36 +1,35 @@
 <template>
   <form class="container" @submit.prevent="checkAnswer()">
     <h3>{{ currentQuestion.subject }}</h3>
-    <div class="row">
+
       <draggable
-        class="dragArea col-sm-12 card widget-flat"
+        class="dragArea row border"
         :list="list1"
         :group="{ name: 'people' }"
         item-key="value"
         @change="log"
       >
         <template #item="{ element }">
-          <div class="card option" :class="element.class">
+          <div class="card widget-flat option m-5" :class="element.class">
             {{ element.value }}
           </div>
         </template>
       </draggable>
-    </div>
 
-    <div class="row">
+
       <draggable
-          class="dragArea col-sm-12 card widget-flat"
+          class="dragArea row border"
           :list="list2"
           group="people"
           item-key="value"
         >
           <template #item="{ element }">
-            <div class="card option" :class="element.class">
+            <div class="card widget-flat option m-5" :class="element.class">
               {{ element.value }}
             </div>
           </template>
         </draggable>
-    </div>
+    
     <div class="btn-group" role="group" aria-label="Basic example">
       <button type="button" @click="PrevQuestion" class="btn btn-secondary" :disabled="this.qstIndex <= 0">Previous Question</button>
       <button type="submit">Check if correct</button>
