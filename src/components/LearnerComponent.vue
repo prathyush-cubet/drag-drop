@@ -1,40 +1,111 @@
 <template>
   <form class="container" @submit.prevent="checkAnswer()">
-    <b-container fluid class="bv-example-row">
+    <h3>{{ currentQuestion.subject }}</h3>x
+    <!-- <b-container fluid class="bv-example-row">
       <h3>{{ currentQuestion.subject }}</h3>
       <b-row>
         <b-col class="option" v-for="(option, index) in currentQuestion.options" :key="index">
           <h3>{{ option.value }}</h3>
           </b-col>
       </b-row>
-    </b-container>
+    </b-container> -->
+
+
+
+
+    <div class="row">
+      <draggable
+        class="col-sm-12 card widget-flat "
+        :list="list1"
+        group="people"
+        @change="log"
+        itemKey="value"
+      >
+        <template #item="{ element, index }">
+          <div class="card-body option" :key="index">{{ element.value }}</div>
+        </template>
+    </draggable>
+  </div>
+
+
+  <div class="row">
+      <draggable v-if="list2.length"
+        class="col-sm-12 card widget-flat"
+        :list="list2"
+        group="people"
+        @change="log"
+        itemKey="value"
+      >
+        <template #item="{ element, index }">
+          <div class="card-body option" :key="index">{{ element.value }}</div>
+        </template>
+    </draggable>
+  </div>
+
+<!-- 
     <div class="h-100 d-flex align-items-center justify-content-center">
       <b-col class="answer">Drag correct answer here</b-col>
-    </div>
+    </div> -->
+    <!-- <div>{{ list2 }}</div> -->
+    <button type="submit">Check if correct</button>
   </form>
 </template>
 
 <script>
+import draggable from "vuedraggable";
 export default {
   name: "LearnComponent",
+  components: {
+    draggable
+  },
   data() {
     return {
       questions:[],
-      currentQuestion :''
+      currentQuestion :'',
+      list1 : [],
+      list2 : []
     };
   },
   methods: {
     checkAnswer() {
+      var origCount= 0 ;
 
+
+      this.currentQuestion.options.map((vitem) => {
+        if(vitem.correct == true) origCount++;
+      });
+
+      if(origCount) {
+        alert('Not correct!');
+      }
+      else {
+        alert('Correct')
+      }
     },
     getQuestions(){
       this.questions = JSON.parse(localStorage.getItem('questions'));
       this.currentQuestion = this.questions[0];
+      this.list1 = this.currentQuestion.options;
+      this.list2 = [{
+        'value' :'Drag correct answer here',
+        'correct' : false
+      }];
     },
+    log: function(evt) {
+      window.console.log(evt);
+      if(this.list2.length>1) {
+        this.list2 = this.list2.filter((item) => {
+          if(item.value == 'Drag correct answer here') {
+            return false;
+          }
+          return true;
+        });
+      }
+    }
   },
   mounted() {
     this.getQuestions();
-  }
+  },
 };
 </script>
 <style scoped>

@@ -14,6 +14,7 @@
                         <td>
                           <input type="text" class="form-control"  placeholder="Options" v-model="option.value"/>
                         </td>
+                        <td><input type="checkbox" v-model="option.correct"/></td>
                       </tr>
                     </table>
                   </div>
@@ -41,7 +42,8 @@ export default {
           subject: '',
           options: [
             {
-              'value' : ''
+              'value' : '',
+              'correct' : false
             }
           ]
         }
@@ -55,7 +57,8 @@ export default {
       control.options= [];
       for(var i=1; i<=control.option_count;i++) {
         control.options.push({
-          'value' : ''
+          'value' : '',
+          'correct' : false
         });
       }
       
@@ -69,7 +72,8 @@ export default {
           subject: '',
           options: [
             {
-              'value' : 'test'
+              'value' : 'test',
+              'correct' : false
             }
           ]
         });
@@ -79,6 +83,9 @@ export default {
     {
       localStorage.setItem('questions', JSON.stringify(this.form_controls));
     }
+  },
+  mounted() {
+    this.form_controls = JSON.parse(localStorage.getItem('questions'));
   }
 }
 
