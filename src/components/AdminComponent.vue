@@ -85,10 +85,12 @@ export default {
     saveQuestions()
     {
       localStorage.setItem('questions', JSON.stringify(this.form_controls));
+      localStorage.setItem('no_of_elements', JSON.stringify(this.no_of_elements));
     }
   },
   mounted() {
     this.form_controls = JSON.parse(localStorage.getItem('questions'));
+    this.no_of_elements = JSON.parse(localStorage.getItem('no_of_elements'));
   }
 }
 

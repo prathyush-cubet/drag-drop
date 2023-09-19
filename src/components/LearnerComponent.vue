@@ -31,9 +31,11 @@
           </template>
         </draggable>
     </div>
-    <button type="button" @click="PrevQuestion" :disabled="this.qstIndex <= 0">Previous Question</button>
-    <button type="submit">Check if correct</button>
-    <button type="button" @click="nextQuestion" :disabled="this.qstIndex >= this.questions.length -1 ">Next Question</button>
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" @click="PrevQuestion" class="btn btn-secondary" :disabled="this.qstIndex <= 0">Previous Question</button>
+      <button type="submit">Check if correct</button>
+      <button type="button" @click="nextQuestion" class="btn btn-secondary" :disabled="this.qstIndex >= this.questions.length -1 ">Next Question</button>
+    </div>
   </form>
 </template>
 
