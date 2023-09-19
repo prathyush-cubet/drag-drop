@@ -113,7 +113,7 @@ export default {
         return vitem;
       });
       this.list2 = this.list2.map((vitem) => {
-        if (vitem.value == "Drag correct answer here") return vitem;
+        if (vitem.value == "Drag correct answer(s) here") return vitem;
         if (vitem.correct == true) {
           vitem.class = "alert alert-success";
         } else {
@@ -133,7 +133,7 @@ export default {
       this.list1 = this.currentQuestion.options;
       this.list2 = [
         {
-          value: "Drag correct answer here",
+          value: "Drag correct answer(s) here",
           correct: false,
         },
       ];
@@ -142,7 +142,7 @@ export default {
       window.console.log(evt);
       if (this.list2.length > 1) {
         this.list2 = this.list2.filter((item) => {
-          if (item.value == "Drag correct answer here") {
+          if (item.value == "Drag correct answer(s) here") {
             return false;
           }
           return true;
