@@ -43,7 +43,10 @@
                 <td>
                   <div class="p-3">
                     <table>
-                      <tr><td>Options</td><td>Correct?</td></tr>
+                      <tr>
+                        <td>Options</td>
+                        <td>Correct?</td>
+                      </tr>
                       <tr v-for="(option, vindex) in control.options" :key="vindex">
                         <td>
                           <input
@@ -65,9 +68,11 @@
       </tr>
     </table>
     <tr>
-      <td><button type="submit" class="btn btn-primary m-1">Save</button>
-      <small v-if="saved" class="m-1">Saved successfully</small>
-      <br><br><br><br><br></td>
+      <td>
+        <button type="submit" class="btn btn-primary m-1">Save</button>
+        <small v-if="saved" class="m-1">Saved successfully</small>
+        <br /><br /><br /><br /><br />
+      </td>
     </tr>
   </form>
 </template>
@@ -92,7 +97,7 @@ export default {
           ],
         },
       ],
-      saved: false
+      saved: false,
     };
   },
   methods: {
@@ -107,20 +112,31 @@ export default {
       }
     },
     addQuestion(no_of_elements) {
-      this.form_controls = [];
-      for (var i = 1; i <= no_of_elements; i++) {
-        this.form_controls.push({
-          id: i,
-          option_count: 1,
-          subject: "",
-          options: [
-            {
-              value: "",
-              correct: false,
-              class: "alert alert-warning",
-            },
-          ],
-        });
+      //this.form_controls = [];
+      no_of_elements = no_of_elements - this.form_controls.length;
+      i = 1;
+      if (no_of_elements > 0) {
+        for (var i = 1; i <= no_of_elements; i++) {
+          this.form_controls.push({
+            id: i,
+            option_count: 1,
+            subject: "",
+            options: [
+              {
+                value: "",
+                correct: false,
+                class: "alert alert-warning",
+              },
+            ],
+          });
+        }
+      } else {
+        no_of_elements = Math.abs(no_of_elements);
+
+        for (i = no_of_elements; i >= 1; i--) {
+          this.form_controls.splice(i,1)
+        }
+        
       }
     },
     saveQuestions() {
