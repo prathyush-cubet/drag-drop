@@ -164,6 +164,7 @@ export default {
   height: 100px;
   text-align: center;
   vertical-align: middle;
+  cursor: pointer;
 }
 .answer {
   border-style: solid;
