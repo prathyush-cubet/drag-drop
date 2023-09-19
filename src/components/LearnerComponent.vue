@@ -1,6 +1,6 @@
 <template>
   <form class="container" @submit.prevent="checkAnswer()">
-    <h3>{{ currentQuestion.subject }}</h3>x
+    <h3>{{ currentQuestion.subject }}</h3>
     <div class="row">
       <draggable
         class="dragArea col-sm-12 card widget-flat"
@@ -10,7 +10,7 @@
         @change="log"
       >
         <template #item="{ element }">
-          <div class="card-body option" :class="element.class">
+          <div class="card option" :class="element.class">
             {{ element.value }}
           </div>
         </template>
@@ -19,13 +19,13 @@
 
     <div class="row">
       <draggable
-          class="dragArea list-group"
+          class="dragArea col-sm-12 card widget-flat"
           :list="list2"
           group="people"
           item-key="value"
         >
           <template #item="{ element }">
-            <div class="card-body option" :class="element.class">
+            <div class="card option" :class="element.class">
               {{ element.value }}
             </div>
           </template>

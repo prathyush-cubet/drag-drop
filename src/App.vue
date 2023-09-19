@@ -12,7 +12,6 @@
 
     <router-link class="col p-1" to="/">Admin</router-link>
     <router-link class="col p-1" to="/learner">Learner</router-link>
-    <router-link class="col p-1" to="/drag">Drag & Drop</router-link>
     </b-navbar-nav>
 
     </b-collapse>
