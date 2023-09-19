@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <form class="container" @submit.prevent="saveQuestions()">
         <tr><td><input type="number" class="form-control" placeholder="No.of Questions" v-model="no_of_elements" @keyup="addQuestion(no_of_elements)"/></td></tr>
         <table v-for="(control, index) in form_controls" :key="index">
           <tr><td>
@@ -10,15 +10,11 @@
                 <tr v-if="control.options.length"><td>
                   <div class="p-3">
                     <table>
-                      <tr v-for="(option,index) in control.options" :key="index"><td>
-                        <table>
-                          <tr v-for="(index, option) in option" :key="index">
-                            <td>
-                            <input type="text" class="form-control"  placeholder="Options" v-model="option.value"/>
-                            </td>
-                          </tr>
-                        </table>
-                      </td></tr>
+                      <tr v-for="(option,vindex) in control.options" :key="vindex">
+                        <td>
+                          <input type="text" class="form-control"  placeholder="Options" v-model="option.value"/>
+                        </td>
+                      </tr>
                     </table>
                   </div>
                 </td></tr>
@@ -28,7 +24,8 @@
           </td></tr>
           
         </table>
-    </div>
+        <tr><td><button type="submit">Save</button></td></tr>
+    </form>
 </template>
 
 <script>
@@ -44,7 +41,7 @@ export default {
           subject: '',
           options: [
             {
-              'value' : 'test'
+              'value' : ''
             }
           ]
         }
@@ -54,10 +51,12 @@ export default {
   methods : {
     addOptions(control) 
     {
-      for(var i=2; i<=control.option_count;i++) {
+      
+      control.options= [];
+      for(var i=1; i<=control.option_count;i++) {
         control.options.push({
-        'value' : 'test'
-      });
+          'value' : ''
+        });
       }
       
     },
@@ -75,6 +74,10 @@ export default {
           ]
         });
       }
+    },
+    saveQuestions()
+    {
+      localStorage.setItem('questions', JSON.stringify(this.form_controls));
     }
   }
 }
