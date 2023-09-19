@@ -31,8 +31,9 @@
           </template>
         </draggable>
     </div>
-
+    <button type="button" @click="PrevQuestion" :disabled="this.qstIndex <= 0">Previous Question</button>
     <button type="submit">Check if correct</button>
+    <button type="button" @click="nextQuestion" :disabled="this.qstIndex >= this.questions.length -1 ">Next Question</button>
   </form>
 </template>
 
@@ -49,15 +50,31 @@ export default {
       questions:[],
       currentQuestion :'',
       list1 : [],
-      list2 : []
+      list2 : [],
+      qstIndex : 0
     };
   },
   methods: {
+    nextQuestion() {
+      this.qstIndex++;
+      if(this.questions.length > this.qstIndex && this.qstIndex>=0) 
+      {
+        this.getQuestions();
+      }
+    },
+    PrevQuestion() {
+      this.qstIndex--;
+      
+      if(this.qstIndex >= 0 && this.questions.length > this.qstIndex) 
+      {
+        this.getQuestions();
+      }
+    },
     checkAnswer() {
       var origCount= 0 ;
       var myCount = 0;
       this.questions = JSON.parse(localStorage.getItem('questions'));
-      this.currentQuestion = this.questions[0];
+      this.currentQuestion = this.questions[this.qstIndex];
       this.currentQuestion.options.map((vitem) => {
         if(vitem.correct == true) origCount++;
       });
@@ -94,7 +111,7 @@ export default {
     },
     getQuestions(){
       this.questions = JSON.parse(localStorage.getItem('questions'));
-      this.currentQuestion = this.questions[0];
+      this.currentQuestion = this.questions[this.qstIndex];
       this.list1 = this.currentQuestion.options;
       this.list2 = [{
         'value' :'Drag correct answer here',
