@@ -3,7 +3,7 @@
     <h3>{{ currentQuestion.subject }}</h3>
     <div class="row">
       <draggable
-        class="dragArea row border"
+        class="row border justify-content-center"
         style="height: 200px"
         :list="list1"
         :group="{ name: 'people' }"
@@ -11,7 +11,7 @@
         @change="log"
       >
         <template #item="{ element }">
-          <div class="card widget-flat option m-5" :class="element.class">
+          <div class="card widget-flat option m-5 centerd" :class="element.class">
             {{ element.value }}
           </div>
         </template>
@@ -19,13 +19,13 @@
     </div>
     <div class="row" style="height: 250px">
       <draggable
-        class=" row border"
+        class="row border justify-content-center"
         :list="list2"
         group="people"
         item-key="value"
       >
         <template #item="{ element }">
-          <div class="card widget-flat option m-5" :class="element.class">
+          <div class="card widget-flat option m-5 centerd" :class="element.class">
             {{ element.value }}
           </div>
         </template>

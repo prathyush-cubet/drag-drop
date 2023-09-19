@@ -8,6 +8,7 @@
           placeholder="Number of elements"
           v-model="no_of_elements"
           @keyup="addQuestion(no_of_elements)"
+          @change="addQuestion(no_of_elements)"
         />
       </td>
     </tr>
@@ -64,7 +65,9 @@
       </tr>
     </table>
     <tr>
-      <td><button type="submit">Save</button></td>
+      <td><button type="submit" class="btn btn-primary m-1">Save</button>
+      <small v-if="saved" class="m-1">Saved successfully</small>
+      <br><br><br><br><br></td>
     </tr>
   </form>
 </template>
@@ -89,6 +92,7 @@ export default {
           ],
         },
       ],
+      saved: false
     };
   },
   methods: {
@@ -122,6 +126,7 @@ export default {
     saveQuestions() {
       localStorage.setItem("questions", JSON.stringify(this.form_controls));
       localStorage.setItem("no_of_elements", JSON.stringify(this.no_of_elements));
+      this.saved = true;
     },
   },
   mounted() {
