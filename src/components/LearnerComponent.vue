@@ -93,6 +93,7 @@ export default {
       }
 
       this.list1 = this.list1.map((vitem) => {
+        
         if(vitem.correct == true) 
         {
           vitem.class = "alert alert-primary"
@@ -102,6 +103,7 @@ export default {
         return vitem;
       });
       this.list2 =this.list2.map((vitem) => {
+        if(vitem.value == 'Drag correct answer here') return vitem;
         if(vitem.correct == true) 
         {
           vitem.class = "alert alert-primary"
