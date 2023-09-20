@@ -1,79 +1,101 @@
 <template>
   <form class="container" @submit.prevent="saveQuestions()">
-    <tr>
-      <td>
-        <input
-          type="number"
-          class="form-control"
-          placeholder="Number of elements"
-          v-model="no_of_elements"
-          @keyup="addQuestion(no_of_elements)"
-          @change="addQuestion(no_of_elements)"
-        />
-      </td>
-    </tr>
-    <table v-for="(control, index) in form_controls" :key="index" width="100%">
-      <tr>
-        <td>
-          <div class="p-3 border">
-            <table width="100%">
-              <tr>
-                <td>
-                  <input
-                    type="text"
-                    class="form-control"
-                    :id="control.id"
-                    placeholder="Subject"
-                    v-model="control.subject"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    type="number"
-                    class="form-control"
-                    placeholder="Number of element (1-10) "
-                    v-model="control.option_count"
-                    @keyup="addOptions(control)"
-                  />
-                </td>
-              </tr>
-              <tr v-if="control.options.length">
-                <td>
-                  <div class="p-3">
-                    <table>
-                      <tr>
-                        <td>Options</td>
-                        <td>Correct?</td>
-                      </tr>
-                      <tr v-for="(option, vindex) in control.options" :key="vindex">
-                        <td>
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Option"
-                            v-model="option.value"
-                          />
-                        </td>
-                        <td><input type="checkbox" v-model="option.correct" /></td>
-                      </tr>
-                    </table>
-                  </div>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </td>
-      </tr>
-    </table>
-    <tr>
-      <td>
-        <button type="submit" class="btn btn-primary m-1">Save</button>
-        <small v-if="saved" class="m-1">Saved successfully</small>
-        <br /><br /><br /><br /><br />
-      </td>
-    </tr>
+    <div
+      class="text-center col-12 h-100 d-flex align-items-center justify-content-center"
+    >
+      <div class="col-9 text-center p-3" style="background-color: #f8f9fa">
+        <h3>Add Questions</h3>
+        <tr>
+          <td align="left">
+            <label for="no_of_elements" class="label">No of Elements</label>
+            <input
+              type="number"
+              id="no_of_elements"
+              required
+              class="form-control"
+              v-model="no_of_elements"
+              @keyup="addQuestion(no_of_elements)"
+              @change="addQuestion(no_of_elements)"
+            />
+          </td>
+        </tr>
+        <table v-for="(control, index) in form_controls" :key="index" width="100%">
+          <tr>
+            <td>
+              <div class="p-3 border">
+                <table width="100%">
+                  <tr>
+                    <td align="left">
+                      <label :for="`qst${index}`" class="label">Subject</label>
+                      <input
+                        :id="`qst${index}`"
+                        required
+                        type="text"
+                        class="form-control"
+                        v-model="control.subject"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left">
+                      <label :for="`noofoptions${index}`" class="label"
+                        >Number of element (1-10)</label
+                      >
+                      <input
+                        type="number"
+                        required
+                        :id="`noofoptions${index}`"
+                        class="form-control"
+                        v-model="control.option_count"
+                        @keyup="addOptions(control)"
+                      />
+                    </td>
+                  </tr>
+                  <tr v-if="control.options.length">
+                    <td>
+                      <div class="p-3">
+                        <table>
+                          <tr>
+                            <!-- <td class="label">Options</td> -->
+                            <td></td>
+                            <td class="label">Correct?</td>
+                          </tr>
+                          <tr v-for="(option, vindex) in control.options" :key="vindex">
+                            <td align="left">
+                              <label :for="`options${index}${vindex}`" class="label"
+                                >Option</label
+                              >
+                              <input
+                                required
+                                :id="`options${index}${vindex}`"
+                                type="text"
+                                class="form-control"
+                                v-model="option.value"
+                              />
+                            </td>
+                            <td><input type="checkbox" v-model="option.correct" /></td>
+                          </tr>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <tr>
+          <td>
+            <button type="submit" class="btn btn-primary m-1">Save</button>
+            <button type="button" class="btn btn-secondary m-1" @click="resetForm">
+              Reset
+            </button>
+            <small v-if="saved" class="m-1">Saved successfully</small>
+            <br /><br /><br /><br /><br />
+          </td>
+        </tr>
+      </div>
+    </div>
   </form>
 </template>
 
@@ -134,15 +156,40 @@ export default {
         no_of_elements = Math.abs(no_of_elements);
 
         for (i = no_of_elements; i >= 1; i--) {
-          this.form_controls.splice(i,1)
+          this.form_controls.splice(i, 1);
         }
-        
       }
     },
     saveQuestions() {
       localStorage.setItem("questions", JSON.stringify(this.form_controls));
       localStorage.setItem("no_of_elements", JSON.stringify(this.no_of_elements));
       this.saved = true;
+    },
+    resetForm() {
+      this.no_of_elements = 1;
+      this.form_controls = [];
+      this.form_controls.push({
+        id: 0,
+        option_count: 3,
+        subject: "",
+        options: [
+          {
+            value: "",
+            correct: false,
+            class: "alert alert-warning",
+          },
+          {
+            value: "",
+            correct: false,
+            class: "alert alert-warning",
+          },
+          {
+            value: "",
+            correct: false,
+            class: "alert alert-warning",
+          },
+        ],
+      });
     },
   },
   mounted() {
@@ -151,3 +198,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.label {
+  font-size: 0.8em;
+  text-align: left;
+}
+</style>

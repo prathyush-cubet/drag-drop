@@ -4,7 +4,7 @@
     <div class="row">
       <draggable
         class="row border justify-content-center"
-        style="height: 200px"
+        style="height: 250px"
         :list="list1"
         :group="{ name: 'people' }"
         item-key="value"
@@ -104,14 +104,14 @@ export default {
         alert("Not Correct");
       }
 
-      this.list1 = this.list1.map((vitem) => {
-        if (vitem.correct == true) {
-          vitem.class = "alert alert-success";
-        } else {
-          vitem.class = "alert alert-danger";
-        }
-        return vitem;
-      });
+      // this.list1 = this.list1.map((vitem) => {
+      //   if (vitem.correct == true) {
+      //     vitem.class = "alert alert-success";
+      //   } else {
+      //     vitem.class = "alert alert-danger";
+      //   }
+      //   return vitem;
+      // });
       this.list2 = this.list2.map((vitem) => {
         if (vitem.value == "Drag correct answer(s) here") return vitem;
         if (vitem.correct == true) {
@@ -163,8 +163,8 @@ export default {
   border-style: solid;
   border-width: thin;
   border-color: grey;
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 125px;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
@@ -177,5 +177,13 @@ export default {
   text-align: center;
   vertical-align: middle;
   background-color: #0dcaf0;
+}
+.alert-danger {
+  background-color: red;
+  color: #fff;
+}
+.alert-success {
+  background-color: green;
+  color: #fff;
 }
 </style>
