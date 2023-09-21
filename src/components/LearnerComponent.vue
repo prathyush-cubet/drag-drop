@@ -126,13 +126,13 @@ export default {
       });
     },
     getQuestions() {
-      this.questions = JSON.parse(localStorage.getItem("questions"));
-      if (this.questions == null) {
+      this.questions = JSON.parse(localStorage.getItem("questions")) ?? [];
+      if (this.questions.length == 0) {
         this.$router.push("admin");
         return;
       }
 
-      this.currentQuestion = this.questions[this.qstIndex];
+      this.currentQuestion = this.questions[this.qstIndex] ?? 0;
       this.qstNumber = this.qstIndex + 1;
       this.list1 = this.currentQuestion.options;
       this.list2 = [
