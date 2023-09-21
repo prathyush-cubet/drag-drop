@@ -26,6 +26,7 @@
           :key="index"
           width="100%"
           class="mt-2 mb-5 bg-gray"
+          style="background-color: aliceblue"
         >
           <tr>
             <td>

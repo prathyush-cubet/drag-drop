@@ -19,10 +19,11 @@
       </draggable>
     </div>
     <div class="p-3">Drag correct answer(s) to bottom area</div>
-    <div class="row bg-secondary" style="height: 250px">
+    <div class="row" style="height: 250px">
       <!-- <div><img src="https://picsum.photos/id/237/200/300" /></div> -->
       <draggable
-        class="row border justify-content-center"
+        class="row border justify-content-center bg-secondary"
+        style="border-radius: 10px"
         :list="list2"
         group="people"
         item-key="value"
@@ -34,7 +35,7 @@
             :style="element.image != '' ? 'width:10%' : ''"
           >
             <img v-if="element.image" :src="element.image" />
-            <span v-else>{{ element.value }}</span>
+            <div v-else class="after_div">{{ element.value }}</div>
           </div>
         </template>
       </draggable>
@@ -213,5 +214,11 @@ export default {
 }
 .row {
   margin-left: 0 !important;
+}
+.after_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 </style>
