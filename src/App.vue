@@ -5,8 +5,8 @@
         <b-navbar-brand href="#">NavBar</b-navbar-brand>
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-          <router-link class="col p-1" to="/">Admin</router-link>
-          <router-link class="col p-1" to="/learner">Learner</router-link>
+            <router-link class="col p-1" to="/">Admin</router-link>
+            <router-link class="col p-1" to="/learner">Learner</router-link>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
@@ -16,15 +16,14 @@
 </template>
 
 <script>
-
 export default {
-  name: 'App'
-}
+  name: "App",
+};
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -32,6 +31,6 @@ export default {
 }
 .active {
   font-weight: 700;
-  color:#fff
+  color: #fff;
 }
 </style>

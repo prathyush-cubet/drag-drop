@@ -1,5 +1,6 @@
 <template>
   <form class="container" @submit.prevent="checkAnswer()">
+    <p>{{ qstNumber }} of {{ questions.length }} questions</p>
     <h3>{{ currentQuestion.subject }}</h3>
     <div class="row">
       <draggable
@@ -34,7 +35,7 @@
     <div class="btn-group" role="group" aria-label="Basic example">
       <button
         type="button"
-        @click="PrevQuestion"
+        @click="prevQuestion"
         class="btn btn-secondary m-1"
         :disabled="this.qstIndex <= 0"
       >
@@ -69,18 +70,20 @@ export default {
       list1: [],
       list2: [],
       qstIndex: 0,
+      qstNumber: 1,
     };
   },
   methods: {
     nextQuestion() {
       this.qstIndex++;
+      this.qstNumber = this.qstIndex + 1;
       if (this.questions.length > this.qstIndex && this.qstIndex >= 0) {
         this.getQuestions();
       }
     },
-    PrevQuestion() {
+    prevQuestion() {
       this.qstIndex--;
-
+      this.qstNumber = this.qstIndex + 1;
       if (this.qstIndex >= 0 && this.questions.length > this.qstIndex) {
         this.getQuestions();
       }
@@ -124,12 +127,13 @@ export default {
     },
     getQuestions() {
       this.questions = JSON.parse(localStorage.getItem("questions"));
-      if(this.questions == null) {
-        this.$router.push('admin');
+      if (this.questions == null) {
+        this.$router.push("admin");
         return;
       }
 
       this.currentQuestion = this.questions[this.qstIndex];
+      this.qstNumber = this.qstIndex + 1;
       this.list1 = this.currentQuestion.options;
       this.list2 = [
         {
@@ -151,7 +155,7 @@ export default {
     },
     reset() {
       this.getQuestions();
-    }
+    },
   },
   mounted() {
     this.getQuestions();

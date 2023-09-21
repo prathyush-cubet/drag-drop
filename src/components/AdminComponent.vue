@@ -193,7 +193,7 @@ export default {
     },
   },
   mounted() {
-    this.form_controls = JSON.parse(localStorage.getItem("questions"));
+    this.form_controls = JSON.parse(localStorage.getItem("questions")) ?? [];
     this.no_of_elements = JSON.parse(localStorage.getItem("no_of_elements"));
   },
 };
