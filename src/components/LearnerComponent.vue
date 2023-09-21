@@ -208,7 +208,7 @@ export default {
   color: #fff;
 }
 .alert-warning {
-  background-color: blue;
+  background-color: #8845f5;
   color: #fff;
 }
 .row {

@@ -19,14 +19,21 @@
             />
           </td>
         </tr>
-        <table v-for="(control, index) in form_controls" :key="index" width="100%">
+        <table
+          v-for="(control, index) in form_controls"
+          :key="index"
+          width="100%"
+          class="mt-2 mb-5 bg-gray"
+        >
           <tr>
             <td>
               <div class="p-3 border">
                 <table width="100%">
                   <tr>
                     <td align="left">
-                      <label :for="`qst${index}`" class="label">Subject</label>
+                      <label :for="`qst${index}`" class="label"
+                        >Subject #{{ ++index }}</label
+                      >
                       <input
                         :id="`qst${index}`"
                         required
@@ -58,7 +65,7 @@
                           <tr>
                             <!-- <td class="label">Options</td> -->
                             <td></td>
-                            <td class="label">Correct?</td>
+                            <td class="label">Mark Correct Answer</td>
                           </tr>
                           <tr v-for="(option, vindex) in control.options" :key="vindex">
                             <td align="left">
