@@ -7,7 +7,7 @@
         class="row border justify-content-center"
         style="height: 250px"
         :list="list1"
-        :group="{ name: 'people' }"
+        :group="{ name: 'people', put: false }"
         item-key="value"
         @change="log"
       >
