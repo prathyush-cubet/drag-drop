@@ -12,13 +12,15 @@
         @change="log"
       >
         <template #item="{ element }">
-          <div class="card widget-flat option m-5 centerd" :class="element.class">
+          <div class="card option m-5 centerd align-middle" :class="element.class">
             {{ element.value }}
           </div>
         </template>
       </draggable>
     </div>
-    <div class="row" style="height: 250px">
+    <div>Drag correct answer(s) to bottom area</div>
+    <div class="row bg-secondary" style="height: 250px">
+      <!-- <div><img src="https://picsum.photos/id/237/200/300" /></div> -->
       <draggable
         class="row border justify-content-center"
         :list="list2"
@@ -26,8 +28,13 @@
         item-key="value"
       >
         <template #item="{ element }">
-          <div class="card widget-flat option m-5 centerd" :class="element.class">
-            {{ element.value }}
+          <div
+            class="card option2 m-5 centerd"
+            :class="element.class"
+            :style="element.image != '' ? 'width:10%' : ''"
+          >
+            <img v-if="element.image" :src="element.image" />
+            <span v-else>{{ element.value }}</span>
           </div>
         </template>
       </draggable>
@@ -139,6 +146,7 @@ export default {
         {
           value: "Drag correct answer(s) here",
           correct: false,
+          image: "/drag.jpg",
         },
       ];
     },
@@ -173,6 +181,15 @@ export default {
   vertical-align: middle;
   cursor: pointer;
 }
+.option2 {
+  width: 150px;
+  height: 125px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 0;
+  background-color: #dbe7ff;
+}
 .answer {
   border-style: solid;
   border-color: green;
@@ -189,5 +206,8 @@ export default {
 .alert-success {
   background-color: green;
   color: #fff;
+}
+.row {
+  margin-left: 0 !important;
 }
 </style>
