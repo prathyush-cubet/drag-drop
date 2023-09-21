@@ -32,7 +32,7 @@
                   <tr>
                     <td align="left">
                       <label :for="`qst${index}`" class="label"
-                        >Subject #{{ ++index }}</label
+                        >Subject #{{ index + 1 }}</label
                       >
                       <input
                         :id="`qst${index}`"
