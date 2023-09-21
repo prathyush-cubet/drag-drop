@@ -40,7 +40,7 @@
         </template>
       </draggable>
     </div>
-    <div class="btn-group" role="group" aria-label="Basic example">
+    <div class="btn-group m-3" role="group" aria-label="Basic example">
       <button
         type="button"
         @click="prevQuestion"
