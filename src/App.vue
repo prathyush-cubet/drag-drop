@@ -2,7 +2,9 @@
   <div id="app">
     <div>
       <b-navbar toggleable="lg" type="dark" variant="info">
-        <b-navbar-brand href="#">NavBar</b-navbar-brand>
+        <b-navbar-brand href="#">
+          <img src="https://app-staging.scandlearn.net/images/scandlearn-icon-dark.svg" />
+        </b-navbar-brand>
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
             <router-link class="col p-1" to="/">Admin</router-link>
