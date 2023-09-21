@@ -12,13 +12,13 @@
         @change="log"
       >
         <template #item="{ element }">
-          <div class="card option m-5 centerd align-middle" :class="element.class">
+          <div class="card option m-5 centerd p-5" :class="element.class">
             {{ element.value }}
           </div>
         </template>
       </draggable>
     </div>
-    <div>Drag correct answer(s) to bottom area</div>
+    <div class="p-3">Drag correct answer(s) to bottom area</div>
     <div class="row bg-secondary" style="height: 250px">
       <!-- <div><img src="https://picsum.photos/id/237/200/300" /></div> -->
       <draggable
@@ -205,6 +205,10 @@ export default {
 }
 .alert-success {
   background-color: green;
+  color: #fff;
+}
+.alert-warning {
+  background-color: blue;
   color: #fff;
 }
 .row {
