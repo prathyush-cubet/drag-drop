@@ -5,20 +5,22 @@
     >
       <div class="col-9 text-center p-3" style="background-color: #f8f9fa">
         <h3>Add Questions</h3>
-        <tr>
-          <td align="left">
-            <label for="no_of_elements" class="label">No of Elements</label>
-            <input
-              type="number"
-              id="no_of_elements"
-              required
-              class="form-control"
-              v-model="no_of_elements"
-              @keyup="addQuestion(no_of_elements)"
-              @change="addQuestion(no_of_elements)"
-            />
-          </td>
-        </tr>
+        <table>
+          <tr>
+            <td align="left">
+              <label for="no_of_elements" class="label">No of Elements</label>
+              <input
+                type="number"
+                id="no_of_elements"
+                required
+                class="form-control"
+                v-model="no_of_elements"
+                @keyup="addQuestion(no_of_elements)"
+                @change="addQuestion(no_of_elements)"
+              />
+            </td>
+          </tr>
+        </table>
         <table
           v-for="(control, index) in form_controls"
           :key="index"
@@ -91,16 +93,19 @@
             </td>
           </tr>
         </table>
-        <tr>
-          <td>
-            <button type="submit" class="btn btn-primary m-1">Save</button>
-            <button type="button" class="btn btn-secondary m-1" @click="resetForm">
-              Reset
-            </button>
-            <small v-if="saved" class="m-1">Saved successfully</small>
-            <br /><br /><br /><br /><br />
-          </td>
-        </tr>
+        <table width="100%">
+          <tr>
+            <td align="right">
+              <button type="button" class="btn btn-secondary m-1" @click="resetForm">
+                Reset
+              </button>
+              <button type="submit" class="btn btn-primary m-1">Save</button>
+              <br />
+              <small v-if="saved" class="m-1">Saved successfully</small>
+              <br /><br /><br /><br /><br />
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   </form>
