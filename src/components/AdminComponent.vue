@@ -4,11 +4,11 @@
       class="text-center col-12 h-100 d-flex align-items-center justify-content-center"
     >
       <div class="col-9 text-center p-3" style="background-color: #f8f9fa">
-        <h3>Add Questions</h3>
+        <h3>Questions</h3>
         <table>
           <tr>
             <td align="left">
-              <label for="no_of_elements" class="label">No of Elements</label>
+              <label for="no_of_elements" class="label">No Of Questions</label>
               <input
                 type="number"
                 id="no_of_elements"
@@ -35,7 +35,7 @@
                   <tr>
                     <td align="left">
                       <label :for="`qst${index}`" class="label"
-                        >Subject #{{ index + 1 }}</label
+                        >Question #{{ index + 1 }}</label
                       >
                       <input
                         :id="`qst${index}`"
@@ -49,13 +49,14 @@
                   <tr>
                     <td align="left">
                       <label :for="`noofoptions${index}`" class="label"
-                        >Number of element (1-10)</label
+                        >Number Of Options (1-10)</label
                       >
                       <input
                         type="number"
                         required
                         :id="`noofoptions${index}`"
                         class="form-control"
+                        maxLength="10"
                         v-model="control.option_count"
                         @keyup="addOptions(control)"
                       />
@@ -68,12 +69,12 @@
                           <tr>
                             <!-- <td class="label">Options</td> -->
                             <td></td>
-                            <td class="label">Mark Correct Answer</td>
+                            <td class="label">Correct Answer</td>
                           </tr>
                           <tr v-for="(option, vindex) in control.options" :key="vindex">
                             <td align="left">
                               <label :for="`options${index}${vindex}`" class="label"
-                                >Option</label
+                                >Option {{ vindex + 1 }}</label
                               >
                               <input
                                 required
@@ -137,6 +138,12 @@ export default {
   },
   methods: {
     addOptions(control) {
+      if (control.option_count > 10) {
+        control.option_count = 10;
+      }
+      if (control.option_count < 0) {
+        control.option_count = 1;
+      }
       control.options = [];
       for (var i = 1; i <= control.option_count; i++) {
         control.options.push({

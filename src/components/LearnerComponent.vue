@@ -1,6 +1,6 @@
 <template>
   <form class="container" @submit.prevent="checkAnswer()">
-    <p>{{ qstNumber }} of {{ questions.length }} questions</p>
+    <p>{{ qstNumber }} Of {{ questions.length }} Questions</p>
     <h3>{{ currentQuestion.subject }}</h3>
     <div class="row">
       <draggable
@@ -49,7 +49,7 @@
       >
         Previous Question
       </button>
-      <button type="submit" class="btn btn-secondary m-1">Check if correct</button>
+      <button type="submit" class="btn btn-secondary m-1">Check If Correct</button>
       <button type="button" class="btn btn-secondary m-1" @click="reset()">Reset</button>
       <button
         type="button"
