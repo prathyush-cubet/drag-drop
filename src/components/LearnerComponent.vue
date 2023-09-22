@@ -201,11 +201,11 @@ export default {
   background-color: #0dcaf0;
 }
 .alert-danger {
-  background-color: red;
+  background-color: #d80032;
   color: #fff;
 }
 .alert-success {
-  background-color: green;
+  background-color: #004225;
   color: #fff;
 }
 .alert-warning {
